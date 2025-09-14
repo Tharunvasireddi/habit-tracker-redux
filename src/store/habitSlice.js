@@ -9,13 +9,22 @@ const initialState = {
   habits: [],
 };
 const habitSlice = createSlice({
-  name:"habits",
+  name: "habits",
   initialState,
-  reducers: {},
+  // inside our reducers we have to write functions that will going to use to manipulate the state
+
+  reducers: {
+    addHabit : (state,action)=>{
+      const newHabit = {
+        
+      }
+    }
+
+  },
 });
 
 // reducers are the functions that take the state and actions as parameters
 
 export const { addHabit } = habitSlice.actions;
 
-export default habitSlice.reducers;
+export default habitSlice.reducer;

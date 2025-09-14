@@ -1,4 +1,5 @@
 import { Container, Typography } from "@mui/material";
+import HabitForm from "./components/HabitForm";
 
 function App() {
   return (
@@ -6,6 +7,7 @@ function App() {
       <Container maxWidth="md">
         <Typography component="h1" variant="h2" align="center">
           Habit Tracker
+          <HabitForm />
         </Typography>
       </Container>
     </>
