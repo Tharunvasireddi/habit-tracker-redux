@@ -1,17 +1,23 @@
 import { Box, Button, Grid, Paper, Typography } from "@mui/material";
-import { useSelector } from "react-redux";
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import DeleteIcon from "@mui/icons-material/Delete";
+import { useSelector, useDispatch } from "react-redux";
+import { toggleHabit } from "../store/habitSlice";
+import { deleteHabit } from "../store/habitSlice";
 
 const HabitsList = () => {
   // to fetch the state from the store we use useSelector hook from redux
   const habits = useSelector((state) => state.habits.habits);
   console.log("this is that", habits);
   const today = new Date().toISOString().split("T")[0];
-
+  const dispatch = useDispatch();
   return (
     <Box
       sx={{
         display: "flex",
-        flexDirection: "column",
+        flexDirection: "row",
+        justifyContent: "space-between",
+        alignItems: "center",
         gap: 2,
         mt: 4,
       }}
@@ -33,12 +39,24 @@ const HabitsList = () => {
                   <Button
                     variant="outlined"
                     color={
-                      habit.compeletedDates.includes(today)
-                        ? "success"
+                      habit.completedDates.includes(today)
+                        ? "completed"
                         : "primary"
                     }
+                    startIcon={<CheckCircleIcon />}
+                    onClick={() => dispatch(toggleHabit(habit.id, today))}
                   >
-                    Mark completed
+                    {habit.completedDates.includes(today)
+                      ? "Completed"
+                      : "Mark completed"}
+                  </Button>
+                  <Button
+                    variant="outlined"
+                    color="error"
+                    startIcon={<DeleteIcon />}
+                    onClick={() => dispatch(deleteHabit(habit.id))}
+                  >
+                    {habit.completedDates.includes(today) ? "Undo" : "Delete"}
                   </Button>
                 </Box>
               </Grid>

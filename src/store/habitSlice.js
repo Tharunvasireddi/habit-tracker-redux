@@ -6,7 +6,6 @@ import { createSlice } from "@reduxjs/toolkit";
 // create slice is a function it accecpts an object full of reducers and a intial state and names of the reducers
 
 const initialState = {
-  count: 0,
   habits: [],
 };
 const habitSlice = createSlice({
@@ -26,10 +25,22 @@ const habitSlice = createSlice({
         id: new Date().getTime().toString(),
         name: action.payload.name,
         freq: action.payload.freq,
-        completed: [],
+        completedDates: [],
         createdAt: new Date().toISOString(),
       };
       state.habits.push(newHabit);
+    },
+    toggleHabit: (state, action) => {
+      const habit = state.habits.find((habit) => habit.id === action.id);
+
+      if (habit) {
+        const index = state.completedDates.indexOf(action.payload.date);
+        if(index >-1){
+          habit.completedDates.splice(index,1);
+        }else{
+          habit.completedDates.push(action.payload.date);
+        }
+      }
     },
   },
 });
@@ -38,5 +49,5 @@ const habitSlice = createSlice({
 // actions are the functions that trigger the reducer
 // state is the data that is stored in the store
 // actions are the functions that trigger the reducer
-export const { addHabit } = habitSlice.actions;
+export const { addHabit, toggleHabit } = habitSlice.actions;
 export default habitSlice.reducer;
