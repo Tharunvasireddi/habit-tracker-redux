@@ -7,14 +7,23 @@ import {
   MenuItem,
   Button,
 } from "@mui/material";
+import { addHabit } from "../store/habitSlice";
 import React, { useState } from "react";
-
+import { useDispatch } from "react-redux";
+import store from "../store/store";
 const HabitForm = () => {
   const [name, setName] = useState("");
   const [freq, setFreq] = useState("");
-
+  const dispatch = useDispatch();
+  console.log("hi hello this is the store", store.getState());
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (name.trim() && freq.trim()) {
+      dispatch(addHabit({ name, freq }));
+      setName("");
+      setFreq("");
+    }
+    console.log("hi hello this is the store", );
   };
   return (
     <form onSubmit={handleSubmit}>
